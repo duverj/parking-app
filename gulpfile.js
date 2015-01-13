@@ -18,3 +18,8 @@ gulp.task('build', function () {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(dist + '/javascripts/'));
 });
+gulp.task('watching',function() {
+	gulp.watch('src/javascripts/*.js',function() {
+		console.log('')
+	});
+});
