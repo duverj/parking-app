@@ -6,7 +6,9 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
-
+var serve = require('./app');
+var express = require('express');
+var app = express();
 /**
  * Scripts setup
  */
@@ -18,16 +20,13 @@ gulp.task('build', function () {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(dist + '/javascripts/'));
 });
-/**
-* Watch task
-*/
-gulp.task('watch', function () {};
 
 /**
 * Server task
 */
 gulp.task('server', function () {
+  app.use(serve);
+  app.listen(3000);
+});
 
-};
-
-gulp.task('default', ['build', 'serve', 'watch']);
+gulp.task('default', ['build', 'server']);
