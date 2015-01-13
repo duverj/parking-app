@@ -23,6 +23,11 @@
       "name": "Victor Duarte Gómez",
       "email": "vduarte@velocitypartners.net",
       "url": "http://vicduarte.com/"
+    },
+    {
+      "name": "Daniel Silva",
+      "email": "dsilva@velocitypartners.net",
+      "url": "http://www.dniskav.com/"
     }
   ],
   "devDependencies": {
