@@ -18,9 +18,15 @@
   },
   "main": "parking.js",
   "author": "Benchs",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Victor Duarte Gómez",
       "email": "vduarte@velocitypartners.net",
       "url": "http://vicduarte.com/"
-  }]
+    }
+  ],
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat-sourcemap": "^1.3.1"
+  }
 }
