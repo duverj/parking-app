@@ -1,8 +1,9 @@
 doctype html
-html
+html(ng-app="parking")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+    script(src='/javascripts/vendors/libraries.js')
     script(src='/javascripts/all.min.js')
