@@ -44,8 +44,9 @@ gulp.task('server', function () {
 /**
 * Watch task
 */
-gulp.task('watching',function() {
+gulp.task('watch', function() {
 	gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
 });
 
-gulp.task('default', ['build', 'server', 'watching']);
+gulp.task('default', ['build', 'server', 'watch']);
+gulp.task('init', ['build', 'watch']);
