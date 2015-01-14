@@ -41,4 +41,11 @@ gulp.task('server', function () {
   app.listen(3000);
 });
 
-gulp.task('default', ['build', 'server']);
+/**
+* Watch task
+*/
+gulp.task('watching',function() {
+	gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
+});
+
+gulp.task('default', ['build', 'server', 'watching']);
