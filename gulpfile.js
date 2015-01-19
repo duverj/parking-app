@@ -1,52 +1,57 @@
 'use strict';
+var src = './src',
+    dist = './public',
+    nodeModules = './node_modules',
+    gulp = require('gulp'),
+    concat = require('gulp-concat'),
+    sourcemaps = require('gulp-sourcemaps'),
+    uglify = require('gulp-uglify'),
+    serve = require('./app'),
+    express = require('express'),
+    app = express(),
+    tasks;
 
-var src = './src';
-var dist = './public';
-var nodeModules = './node_modules';
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var serve = require('./app');
-var express = require('express');
-var app = express();
+tasks = {
+    runServer : function () {
+      app.use(serve);
+      app.listen(3000);
+    },
+    watch : function () {
+      gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
+    },
+    build : function () {
+      gulp.src(src + '/javascripts/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(dist + '/javascripts/'));
+    },
+    buildLibraries : function () {
+        gulp.src(nodeModules + '/angular/*.min.js')
+          .pipe(concat('libraries.js'))
+          .pipe(gulp.dest(dist + '/javascripts/vendors/'));
+    }
+};
 
-/**
+/*
  * Scripts setup
  */
-gulp.task('build', ['build:libraries'], function () {
-  gulp.src(src + '/javascripts/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(concat('all.min.js'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(dist + '/javascripts/'));
-});
-
+gulp.task('build', ['build:libraries'], tasks.build);
 
 /**
  * Set scripts (3rd party)
  */
-gulp.task('build:libraries', function () {
-  gulp.src(nodeModules + '/angular/*.min.js')
-    .pipe(concat('libraries.js'))
-    .pipe(gulp.dest(dist + '/javascripts/vendors/'));
-});
+gulp.task('build:libraries', tasks.buildLibraries);
 
 /**
 * Server task
 */
-gulp.task('server', function () {
-  app.use(serve);
-  app.listen(3000);
-});
+gulp.task('server', tasks.runServer);
 
 /**
 * Watch task
 */
-gulp.task('watch', function() {
-	gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
-});
+gulp.task('watch', tasks.watch);
 
-gulp.task('default', ['build', 'server', 'watch']);
-gulp.task('init', ['build', 'watch']);
+gulp.task('default', ['build', 'watch']);
