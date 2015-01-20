@@ -9,6 +9,8 @@ var src = './src',
     uglify = require('gulp-uglify'),
     serve = require('./app'),
     express = require('express'),
+    file = require('file'),
+    path = require('path'),
     app = express(),
     tasks;
 
@@ -21,11 +23,10 @@ tasks = {
       gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
     },
     build : function () {
-      gulp.src([
-          src + '/javascripts/*.js',
-          src + '/modules/**/*.module.js',
-          src + '/modules/**/*.controller.js'
-        ])
+      var modules = getModules(src + '/modules/');
+      modules.unshift(src + '/javascripts/*.js');
+
+      gulp.src(modules)
         .pipe(sourcemaps.init())
         .pipe(concat('all.min.js'))
         .pipe(uglify())
@@ -73,3 +74,43 @@ gulp.task('watch', tasks.watch);
 gulp.task('buildTemplates', tasks.buildTemplates);
 
 gulp.task('default', ['buildTemplates', 'build', 'watch']);
+
+/**
+ * Iterates through a given folder and find the files that match certain criteria
+ * @param  {String} src path of folder to iterate
+ * @return {Array} filesToCompile source of files
+ */
+function getModules(src) {
+  var filesToCompile = [];
+
+  // Updating 'filesToCompile' array with expected src's
+  file.walkSync(src, function (dirPath, dirs, files) {
+    var module = path.basename(dirPath),
+      tempModuleFiles = [];
+
+    if(files.length < 1) {
+      return;
+    }
+
+    // Updating the 'tempModuleFiles' array with files of extension *.js
+    for(var i = 0; i < files.length; i++) {
+      if(path.extname(path.basename(files[i])) === '.js') {
+        tempModuleFiles.push(files[i]);
+      }
+    }
+
+    if (tempModuleFiles.length < 1) {
+      return;
+    }
+
+    tempModuleFiles = tempModuleFiles.sort(function(a, b) {
+       return path.basename(a, '.js') === module + '.module' ? -1 : 1;
+      }).map(function (value) {
+        return path.join(dirPath, value);
+      });
+
+    filesToCompile = filesToCompile.concat(tempModuleFiles);
+  });
+
+  return filesToCompile;
+}
