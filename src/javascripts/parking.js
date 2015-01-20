@@ -1,2 +1,2 @@
 // Apps module
-var parking = angular.module("parking", []);
+var parking = angular.module('parking', []);
