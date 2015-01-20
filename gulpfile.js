@@ -28,7 +28,10 @@ tasks = {
         .pipe(gulp.dest(dist + '/javascripts/'));
     },
     buildLibraries : function () {
-        gulp.src(nodeModules + '/angular/*.min.js')
+        gulp.src([
+          nodeModules + '/angular/*.min.js',
+          nodeModules + '/angular-ui-router/release/*.min.js'
+          ])
           .pipe(concat('libraries.js'))
           .pipe(gulp.dest(dist + '/javascripts/vendors/'));
     }
