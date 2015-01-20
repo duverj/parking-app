@@ -3,6 +3,7 @@ var src = './src',
     dist = './public',
     nodeModules = './node_modules',
     gulp = require('gulp'),
+    jade = require('gulp-jade'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
@@ -20,7 +21,11 @@ tasks = {
       gulp.watch(['src/javascripts/*.js','views/*.jade','routes/*.js'], ['build']);
     },
     build : function () {
-      gulp.src(src + '/javascripts/*.js')
+      gulp.src([
+          src + '/javascripts/*.js',
+          src + '/modules/**/*.module.js',
+          src + '/modules/**/*.controller.js'
+        ])
         .pipe(sourcemaps.init())
         .pipe(concat('all.min.js'))
         .pipe(uglify())
@@ -34,6 +39,11 @@ tasks = {
           ])
           .pipe(concat('libraries.js'))
           .pipe(gulp.dest(dist + '/javascripts/vendors/'));
+    },
+    buildTemplates : function () {
+      gulp.src([src + '/modules/**/*.jade'])
+        .pipe(jade())
+        .pipe(gulp.dest(dist + '/views/'));
     }
 };
 
@@ -57,4 +67,9 @@ gulp.task('server', tasks.runServer);
 */
 gulp.task('watch', tasks.watch);
 
-gulp.task('default', ['build', 'watch']);
+/**
+ * Templates
+ */
+gulp.task('buildTemplates', tasks.buildTemplates);
+
+gulp.task('default', ['buildTemplates', 'build', 'watch']);
