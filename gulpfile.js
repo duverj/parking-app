@@ -13,6 +13,7 @@ var src = './src',
   file = require('file'),
   path = require('path'),
   sass = require('gulp-sass'),
+  minifyCSS = require('gulp-minify-css'),
   app = express(),
   tasks;
 
@@ -50,23 +51,51 @@ tasks = {
       }
     },
     templates: function () {
-      gulp.src([src + '/modules/**/*.jade'])
+      gulp.src(src + '/modules/**/*.jade')
         .pipe(jade())
         .pipe(gulp.dest(dist + '/views/'));
     },
-    styles: {}
+    styles: {
+      modules: function () {
+        gulp.src(src + '/modules/**/*.sass')
+          .pipe(sourcemaps.init())
+          .pipe(concat('modules.min.css'))
+          .pipe(sass())
+          .pipe(minifyCSS())
+          .pipe(sourcemaps.write())
+          .pipe(gulp.dest(dist + '/stylesheets/'));
+      },
+      foundation: function () {
+        gulp.src([
+            nodeModules + '/zurb-foundation-5/scss/normalize.scss',
+            nodeModules + '/zurb-foundation-5/scss/foundation.scss'
+          ])
+          .pipe(sourcemaps.init())
+          .pipe(concat('foundation.min.css'))
+          .pipe(sass())
+          .pipe(minifyCSS())
+          .pipe(sourcemaps.write())
+          .pipe(gulp.dest(dist + '/stylesheets/'));
+      }
+    }
   }
 };
 
 /*
  * Scripts setup
  */
-gulp.task('build', ['build:libraries'], tasks.build.js.modules);
+gulp.task('build:modules', tasks.build.js.modules);
 
 /**
  * Set scripts (3rd party)
  */
 gulp.task('build:libraries', tasks.build.js.vendors);
+
+/**
+ * Sets css
+ */
+gulp.task('build:foundation', tasks.build.styles.foundation);
+gulp.task('build:styles', tasks.build.styles.modules);
 
 /**
  * Server task
@@ -81,9 +110,12 @@ gulp.task('watch', tasks.watch);
 /**
  * Templates
  */
-gulp.task('buildTemplates', tasks.build.templates);
+gulp.task('build:templates', tasks.build.templates);
 
-gulp.task('default', ['buildTemplates', 'build', 'watch']);
+/**
+ * Gulp grouped tasks
+ */
+gulp.task('default', ['build:foundation', 'build:styles', 'build:templates', 'build:libraries', 'build:modules', 'watch']);
 
 /**
  * Iterates through a given folder and find the files that match certain criteria
