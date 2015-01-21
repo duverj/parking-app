@@ -8,6 +8,7 @@ var src = './src',
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     serve = require('./app'),
+    annotate = require('gulp-ng-annotate'),
     express = require('express'),
     file = require('file'),
     path = require('path'),
@@ -29,6 +30,7 @@ tasks = {
       gulp.src(modules)
         .pipe(sourcemaps.init())
         .pipe(concat('all.min.js'))
+        .pipe(annotate({single_quotes: true}))
         .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(dist + '/javascripts/'));
