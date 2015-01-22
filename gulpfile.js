@@ -27,7 +27,7 @@ tasks = {
   watch: function () {
     gulp.watch([src + '/javascripts/*.js', src + '/modules/**/*.js'], ['build:modules']);
     gulp.watch([src + '/modules/**/*.jade'], ['build:templates']);
-    gulp.watch([src + '/modules/**/*.sass'], ['build:styles']);
+    gulp.watch([src + '/styles/*.sass', src + '/modules/**/*.sass'], ['build:styles']);
   },
   build: {
     js: {
@@ -78,6 +78,15 @@ tasks = {
           .pipe(minifyCSS())
           .pipe(sourcemaps.write())
           .pipe(gulp.dest(dist + '/stylesheets/'));
+      },
+      parking: function () {
+        gulp.src(src + '/styles/*.sass')
+          .pipe(sourcemaps.init())
+          .pipe(concat('parking.min.css'))
+          .pipe(sass())
+          .pipe(minifyCSS())
+          .pipe(sourcemaps.write())
+          .pipe(gulp.dest(dist + '/stylesheets/'));
       }
     }
   }
@@ -97,6 +106,7 @@ gulp.task('build:libraries', tasks.build.js.vendors);
  * Sets css
  */
 gulp.task('build:foundation', tasks.build.styles.foundation);
+gulp.task('build:parking', tasks.build.styles.parking);
 gulp.task('build:styles', tasks.build.styles.modules);
 
 /**
@@ -117,7 +127,15 @@ gulp.task('build:templates', tasks.build.templates);
 /**
  * Gulp grouped tasks
  */
-gulp.task('default', ['build:foundation', 'build:styles', 'build:templates', 'build:libraries', 'build:modules', 'watch']);
+gulp.task('default', [
+    'build:foundation',
+    'build:parking',
+    'build:styles',
+    'build:templates',
+    'build:libraries',
+    'build:modules',
+    'watch'
+  ]);
 
 /**
  * Iterates through a given folder and find the files that match certain criteria
