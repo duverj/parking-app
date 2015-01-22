@@ -25,7 +25,9 @@ tasks = {
     }
   },
   watch: function () {
-    gulp.watch(['src/javascripts/*.js', 'views/*.jade', 'routes/*.js'], ['build']);
+    gulp.watch([src + '/javascripts/*.js', src + '/modules/**/*.js'], ['build:modules']);
+    gulp.watch([src + '/modules/**/*.jade'], ['build:templates']);
+    gulp.watch([src + '/modules/**/*.sass'], ['build:styles']);
   },
   build: {
     js: {
