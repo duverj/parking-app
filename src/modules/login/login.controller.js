@@ -1,7 +1,7 @@
 // Login controller
 'use strict';
 
-login.controller('loginCtrl', function ($state) {
+login.controller('loginCtrl', function () {
   this.user = {};
   this.methods = {};
 
