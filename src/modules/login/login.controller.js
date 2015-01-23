@@ -1,21 +1,21 @@
 // Login controller
 'use strict';
 
-login.controller('loginCtrl', function () {
+login.controller('loginCtrl', function ($state, LoginService) {
   this.user = {};
   this.methods = {};
+  this.errors = {};
+  this.errors.login = false;
 
   /**
    * Cta for user submitting the login form
    */
-  this.methods.submit = function () {
-    console.log('user submitted login');
-  };
-
-  /**
-   * Cta for user cancelling the login form
-   */
-  this.methods.cancel = function () {
-    console.log('user cancelled login');
-  };
+  this.methods.submit = angular.bind(this, function () {
+    if(LoginService.logUser(this.user)) {
+      this.errors.login = false
+      $state.go('home');
+    } else {
+      this.errors.login = true
+    }
+  });
 });
