@@ -1,4 +1,11 @@
 extends layout
-
+block header
+  header
+    div(class="row")
+      div(class="small-3 large-4 columns")
+        img(src="http://www.velocitypartners.net/sites/all/themes/vpa/images/logo.png" width="50%" class="logo")
+      div(class="small-9 large-4 columns")
+        nav(class="top-navigation")
+          a(ui-sref="login" class="button radius right") Login
 block content
   #view(ui-view)
