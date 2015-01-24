@@ -6,9 +6,9 @@
  */
 login.service('LoginService', function LoginService($state, $cookies) {
   /**
-   * Service to login user
+   * Service that validates if user is logged in
    */
-  this.logUser = function () {
+  this.isLogged = function () {
     $cookies.session = 'lorem123456';
     // This return statement will be replace with a service.
     return true;
