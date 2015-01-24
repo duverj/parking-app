@@ -1,4 +1,4 @@
-// Apps module
+// Login service
 'use strict';
 
 /**
@@ -8,8 +8,9 @@ login.service('LoginService', function LoginService($state, $cookies) {
   /**
    * Service to login user
    */
-  this.logUser = function (credentials) {
+  this.logUser = function () {
     $cookies.session = 'lorem123456';
+    // This return statement will be replace with a service.
     return true;
   };
 
@@ -18,7 +19,7 @@ login.service('LoginService', function LoginService($state, $cookies) {
    */
   this.logout = function () {
     var didLogout = true;
-
+    // This conditional will be replace with a service.
     if(didLogout) {
       $cookies.session = '';
       $state.go('home');
