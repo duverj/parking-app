@@ -11,7 +11,7 @@ login.controller('loginCtrl', function ($state, LoginService) {
    * Cta for user submitting the login form
    */
   this.methods.submit = angular.bind(this, function () {
-    if(LoginService.isLogged()) {
+    if(LoginService.login()) {
       this.errors.login = false
       $state.go('home');
     } else {
