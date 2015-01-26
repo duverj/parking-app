@@ -4,13 +4,13 @@
 /**
  * Service for validation of user credentials
  */
-login.service('LoginService', function LoginService($state, $cookies) {
+login.service('LoginService', function LoginService($state, $cookieStore) {
   /**
    * Service that logs user
    */
   this.login = function () {
     // This return statement will be replace with a service.
-    $cookies.session = 'lorem123456';
+    $cookieStore.put('session', 'parking user session');
     return true;
   };
 
@@ -18,8 +18,9 @@ login.service('LoginService', function LoginService($state, $cookies) {
    * Service that validates if user is logged in
    */
   this.isLogged = function () {
+    var usrSession = $cookieStore.get('session');
     // This return statement will be replace with a service.
-    if($cookies.session && $cookies.session.length > 0) {
+    if(usrSession) {
       return true;
     }
     return false;
@@ -32,7 +33,7 @@ login.service('LoginService', function LoginService($state, $cookies) {
     var didLogout = true;
     // This conditional will be replace with a service.
     if(didLogout) {
-      $cookies.session = '';
+      $cookieStore.remove('session');
       $state.go('home');
     } else {
       $log.error('The user doesn\'t wanna go...');
