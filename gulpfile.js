@@ -47,7 +47,8 @@ tasks = {
       vendors: function () {
         gulp.src([
           nodeModules + '/angular/*.min.js',
-          nodeModules + '/angular-ui-router/release/*.min.js'
+          nodeModules + '/angular-ui-router/release/*.min.js',
+          nodeModules + '/angular-cookies/angular-cookies.js'
         ])
           .pipe(concat('libraries.js'))
           .pipe(gulp.dest(dist + '/javascripts/vendors/'));
