@@ -3,6 +3,8 @@
 
 var parking = angular.module('parking', [
     'ui.router',
+    'common.module',
+    'home.module',
     'login.module',
     'ngCookies'
   ]).config(function ($urlRouterProvider, $stateProvider) {
@@ -10,6 +12,9 @@ var parking = angular.module('parking', [
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
-        url: '/'
+        controllerAs : 'home',
+        controller : 'homeCtrl',
+        templateUrl : 'views/home/home.html',
+        url : '/'
       });
   });
