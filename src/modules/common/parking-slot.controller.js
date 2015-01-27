@@ -1,5 +1,5 @@
 // Parking Slot Controller
-'use-strict';
+'use strict';
 
 common.controller('parkingSlotCtrl', function (SpotsService) {
   // Will hold parking spots info
