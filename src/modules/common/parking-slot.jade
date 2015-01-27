@@ -1,0 +1,12 @@
+table
+  thead
+    tr
+      th Name
+      th Plate
+      th Type
+      th Active
+  tr(ng-repeat="slot in slots.spots")
+    td {{slot.name}}
+    td {{slot.plate}}
+    td {{slot.type}}
+    td {{slot.active}}
