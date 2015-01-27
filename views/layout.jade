@@ -6,7 +6,8 @@ html(ng-app="parking")
     link(rel='stylesheet', href='/stylesheets/parking.min.css')
     link(rel='stylesheet', href='/stylesheets/modules.min.css')
   body
-    block header
-    block content
+    div(class="off-canvas-wrap")
+        block header
+        block content
     script(src='/javascripts/vendors/libraries.js')
     script(src='/javascripts/all.min.js')

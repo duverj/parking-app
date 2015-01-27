@@ -1,7 +1,7 @@
-// Home controller
+// Parking Slot Controller
 'use strict';
 
-home.controller('homeCtrl', function (SpotsService) {
+common.controller('parkingSlotCtrl', function (SpotsService) {
   // Will hold parking spots info
   this.spots = undefined;
 
