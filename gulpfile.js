@@ -52,6 +52,9 @@ tasks = {
         ])
           .pipe(concat('libraries.js'))
           .pipe(gulp.dest(dist + '/javascripts/vendors/'));
+        // Copy the angular map
+        gulp.src(nodeModules + '/angular/*.map')
+          .pipe(gulp.dest(dist + '/javascripts/vendors/'));
       }
     },
     templates: function () {
