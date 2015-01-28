@@ -1,4 +1,4 @@
-table
+table(class="row")
   thead
     tr
       th Name
@@ -9,4 +9,7 @@ table
     td {{slot.name}}
     td {{slot.plate}}
     td {{slot.type}}
-    td {{slot.active}}
+    td
+      div(class="switch")
+        input(id="exampleCheckboxSwitch", type="checkbox", ng-checked="{{slot.active}}")
+        label(for="exampleCheckboxSwitch")
