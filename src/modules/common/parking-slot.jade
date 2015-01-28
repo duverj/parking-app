@@ -11,5 +11,5 @@ table(class="row")
     td {{slot.type}}
     td
       div(class="switch")
-        input(id="exampleCheckboxSwitch", type="checkbox", ng-checked="{{slot.active}}")
-        label(for="exampleCheckboxSwitch")
+        input(id="{{'switch'+ $index}}", type="checkbox", ng-checked="{{slot.active}}")
+        label(for="{{'switch'+ $index}}")
