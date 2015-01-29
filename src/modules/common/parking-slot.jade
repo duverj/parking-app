@@ -8,8 +8,9 @@ table(class="row")
   tr(ng-repeat="slot in slots.spots")
     td {{slot.name}}
     td {{slot.plate}}
-    td {{slot.type}}
+    td
+      i(class="fa fa-car fa-2x",ng-class="{'fa-motorcycle fa-2x': slot.type === 'motorcycle'}")
     td
       div(class="switch")
-        input(id="{{'switch'+ $index}}", type="checkbox", ng-checked="{{slot.active}}")
-        label(for="{{'switch'+ $index}}")
+        input(id="{{'switch-' + $index}}", type="checkbox")
+        label(for="{{'switch-' + $index}}")
