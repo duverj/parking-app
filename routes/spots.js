@@ -13,7 +13,8 @@ router.get('/', function(req, res) {
     { name : "Minnie", plate : "VCX 123", type : "car", active : true },
     { name : "Daffy", plate : "IHG 422", type : "car", active : false },
     { name : "Pluto", plate : "UJB 664", type : "car", active : true },
-    { name : "Chip", plate : "FDF 814", type : "motorcycle", active : true }
+    { name : "Chip", plate : "FDF 814", type : "motorcycle", active : true },
+    { name : "John", plate : "CAF 253", type : "motorcycle", active : true }
   ];
   res.send(data);
 });
