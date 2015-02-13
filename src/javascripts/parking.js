@@ -5,7 +5,8 @@ var parking = angular.module('parking', [
     'ui.router',
     'common.module',
     'login.module',
-    'ngCookies'
+    'ngCookies',
+    'ngDialog'
   ]).config(function ($urlRouterProvider, $stateProvider) {
     // When no url finds a match redirect to /
     $urlRouterProvider.otherwise('/');

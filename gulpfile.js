@@ -48,7 +48,8 @@ tasks = {
         gulp.src([
           nodeModules + '/angular/*.min.js',
           nodeModules + '/angular-ui-router/release/*.min.js',
-          nodeModules + '/angular-cookies/angular-cookies.js'
+          nodeModules + '/angular-cookies/angular-cookies.js',
+          nodeModules + '/ng-dialog/js/*.min.js'
         ])
           .pipe(concat('libraries.js'))
           .pipe(gulp.dest(dist + '/javascripts/vendors/'));
