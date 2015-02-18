@@ -2,7 +2,8 @@ extends layout
 block header
   header
     div(class="small-3 large-4 columns")
-      img(src="http://www.velocitypartners.net/sites/all/themes/vpa/images/logo.png" width="50%" class="logo")
+      a(href="#/")
+        img(src="http://www.velocitypartners.net/sites/all/themes/vpa/images/logo.png" width="50%" class="logo")
     div(class="small-9 large-8 columns")
       nav(class="top-navigation", ng-controller="navCtrl as nav")
         a(ui-sref="login", class="button radius right", ng-if="!nav.LoginService.isLogged()") Login
