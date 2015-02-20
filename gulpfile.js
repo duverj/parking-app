@@ -15,6 +15,7 @@ var src = './src',
   sass = require('gulp-sass'),
   minifyCSS = require('gulp-minify-css'),
   app = express(),
+  livereload = require('gulp-livereload'),
   tasks;
 
 tasks = {
@@ -25,6 +26,7 @@ tasks = {
     }
   },
   watch: function () {
+    livereload.listen();
     gulp.watch([src + '/javascripts/*.js', src + '/modules/**/*.js'], ['build:modules']);
     gulp.watch([src + '/modules/**/*.jade'], ['build:templates']);
     gulp.watch([src + '/modules/**/*.sass'], ['build:styles']);
@@ -42,7 +44,8 @@ tasks = {
           .pipe(annotate({single_quotes: true}))
           .pipe(uglify())
           .pipe(sourcemaps.write())
-          .pipe(gulp.dest(dist + '/javascripts/'));
+          .pipe(gulp.dest(dist + '/javascripts/'))
+          .pipe(livereload());
       },
       vendors: function () {
         gulp.src([
@@ -61,7 +64,8 @@ tasks = {
     templates: function () {
       gulp.src(src + '/modules/**/*.jade')
         .pipe(jade())
-        .pipe(gulp.dest(dist + '/views/'));
+        .pipe(gulp.dest(dist + '/views/'))
+        .pipe(livereload());
     },
     styles: {
       modules: function () {
@@ -71,7 +75,8 @@ tasks = {
           .pipe(sass())
           .pipe(minifyCSS())
           .pipe(sourcemaps.write())
-          .pipe(gulp.dest(dist + '/stylesheets/'));
+          .pipe(gulp.dest(dist + '/stylesheets/'))
+          .pipe(livereload());
       },
       foundation: function () {
         gulp.src([
@@ -92,7 +97,8 @@ tasks = {
           .pipe(sass())
           .pipe(minifyCSS())
           .pipe(sourcemaps.write())
-          .pipe(gulp.dest(dist + '/stylesheets/'));
+          .pipe(gulp.dest(dist + '/stylesheets/'))
+          .pipe(livereload());
       }
     }
   }
